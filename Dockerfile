@@ -1,4 +1,4 @@
-From ubuntu:18.04@sha256:a547e88f518355c22df160dd879cf7452b078ad445eb2c307a0787e0945b18d4
+From ubuntu:18.04@sha256:1bbdea4846231d91cce6c7ff3907d26fca444fd6b7e3c282b90c7fe4251f9f86
 ENV LANG C.UTF-8
 WORKDIR /home
 RUN apt-get update
