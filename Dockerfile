@@ -1,4 +1,4 @@
-From ubuntu:18.04
+From ubuntu:18.04@sha256:a547e88f518355c22df160dd879cf7452b078ad445eb2c307a0787e0945b18d4
 ENV LANG C.UTF-8
 WORKDIR /home
 RUN apt-get update
@@ -10,19 +10,5 @@ ENV JAVA_HOME=/usr/local/jdk1.8.0_221
 ENV PATH=${JAVA_HOME}/bin:$PATH
 ENV CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 RUN rm jdk-8u221-linux-x64.tar.gz
-WORKDIR /
-ARG ZIP_FILE
-COPY ${ZIP_FILE} app.zip
-RUN unzip app.zip
-WORKDIR /biyi-lexicalanalysis-1.0.0
+WORKDIR /home
 RUN pip3 install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
-WORKDIR /usr/local/lib/python3.6/dist-packages/pyhanlp/static/
-RUN wget https://repo.ctbiyi.com:6443/repository/ai-ff/biyi_common/data-for-1.7.3.zip
-RUN wget https://repo.ctbiyi.com:6443/repository/ai-ff/biyi_common/hanlp-1.7.3-release.zip
-RUN unzip data-for-1.7.3.zip
-RUN unzip hanlp-1.7.3-release.zip
-RUN rm data-for-1.7.3.zip
-RUN rm hanlp-1.7.3-release.zip
-WORKDIR /biyi-lexicalanalysis-1.0.0
-EXPOSE 9000
-CMD python3 restful_lexicalAnalysis.py
