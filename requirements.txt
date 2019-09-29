@@ -1,0 +1,51 @@
+Flask==1.0.2
+Flask-APScheduler==1.11.0
+Flask-Compress==1.4.0
+Flask-RESTful==0.3.7
+Flask-SQLAlchemy==2.3.2
+hanlp==5.0.0
+pyhanlp==0.1.45
+jieba==0.39
+numpy==1.16.2
+
+
+以下为基础镜像构建过程
+
+
+apt-get update
+apt-get install wget zip python3-pip libsm6 libxrender1 libxext-dev gcc -y
+
+WORKDIR /usr/local/
+wget https://repo.ctbiyi.com:6443/repository/ai-ff/biyi_common/jdk-8u221-linux-arm64-vfp-hflt.tar.gz
+tar -zxvf jdk-8u221-linux-arm64-vfp-hflt.tar.gz
+rm jdk-8u221-linux-arm64-vfp-hflt.tar.gz
+
+JAVA_HOME=/usr/local/jdk1.8.0_221
+PATH=${JAVA_HOME}/bin:$PATH
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+
+pip3 install ***** -i https://mirrors.aliyun.com/pypi/simple/
+
+apt-get install python3-numpy
+
+apt-get install python3-jpype
+pip3 install hanlp==5.0.0 -i https://mirrors.aliyun.com/pypi/simple/
+pip3 install pyhanlp==0.1.45 -i https://mirrors.aliyun.com/pypi/simple/
+
+cd /usr/local/lib/python3.6/dist-packages/pyhanlp/static/
+wget https://repo.ctbiyi.com:6443/repository/ai-ff/biyi_common/hanlp-1.7.3-release.zip
+wget https://repo.ctbiyi.com:6443/repository/ai-ff/biyi_common/data-for-1.7.3.zip
+unzip \*.zip
+rm *.zip
+
+======================================================================================================
+sudo apt-get remove openjdk*  
+
+
+
+update-alternatives --install /usr/bin/java java /usr/local/jdk1.8.0_221/bin/java 300
+update-alternatives --install /usr/bin/javac javac /usr/local/jdk1.8.0_221/bin/javac 300
+update-alternatives --config java
+
+CMD ulimit -c unlimited && python3 restful_lexicalAnalysis.py
