@@ -6,4 +6,4 @@ Flask-SQLAlchemy==2.3.2
 hanlp==5.0.0
 pyhanlp==0.1.45
 jieba==0.39
-numpy==1.16.2
+numpy==1.22.0
